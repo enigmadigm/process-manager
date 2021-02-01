@@ -10,6 +10,9 @@ This is an additional file that contains the webhook secret. It contains this te
 
 ```json
 {
-    "WEBHOOK_SECRET": "[secret]"
+    "WEBHOOK_SECRET": "[secret]",
+    "SUDO_PWD": "[password]"
 }
 ```
+
+For some reason the bash script this runs requires sudo permissions, I do not know why or how to deelevate those perms.

@@ -1,5 +1,5 @@
 const express = require('express');
-const { WEBHOOK_SECRET } = require("./config.json");
+const { WEBHOOK_SECRET, SUDO_PWD } = require("./config.json");
 const crypto = require('crypto');
 const cp = require("child_process");
 const bodyParser = require('body-parser')
@@ -40,7 +40,7 @@ app.post("/", (req, res) => {
             res.sendStatus(201);
             if (req.body && req.body.ref && typeof req.body.ref === "string") {
                 if (req.body.ref === "refs/heads/master") {// https://api.github.com/repos/enigmadigm/greenmesa/branches/master
-                    cp.exec("/var/www/pm/greenmesa.sh", (error, stdout, stderr) => {
+                    cp.exec(`echo -e "${SUDO_PWD}\n" | sudo -S /var/www/pm/greenmesa.sh`, (error, stdout, stderr) => {
                         if (error) {
                             console.error(`exec error: ${error}`);
                             return;
