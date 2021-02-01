@@ -7,8 +7,8 @@ const bodyParser = require('body-parser')
 //const http = require('http');
 
 const app = express();
-const repo = process.env.GREENMESA_REPO;
-const secret = process.env.WEBHOOK_SECRET;
+const repo = process.env.GREENMESA_REPO || "/var/www/stratm/greenmesa";
+const secret = process.env.WEBHOOK_SECRET || "notahuman";
 
 app.use(express.urlencoded({ extended: false }));
 app.use(function (req, res, next) {
