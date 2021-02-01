@@ -43,7 +43,7 @@ app.post("/", (req, res) => {
     if (req.github_hub) {
         if (req.github_hex === req.github_signature) {
 
-            if (req.body && req.body.branches_url && typeof req.body.branches_url === "string") {
+            if (req.body && req.body.repository && req.body.repository.branches_url && typeof req.body.repository.branches_url === "string") {
                 req.sendStatus(201);
                 if (req.body.branches_url === "https://api.github.com/repos/enigmadigm/greenmesa/branches/master") {
                     console.log('yes');
