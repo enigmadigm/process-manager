@@ -19,9 +19,13 @@ app.use(function (req, res, next) {
 app.use(bodyParser.json({
     verify(req, res, buf) {
         req.github_hub = false;
-        if (req.headers && req.headers['X-Hub-Signature'] && typeof req.headers['x-hub-signature'] === "string") {
-            req.github_hub = true;
 
+        console.log("h: "+req.headers['X-Hub-Signature'])
+
+        if (req.headers && req.headers['X-Hub-Signature'] && typeof req.headers['X-Hub-Signature'] === "string") {
+            console.log("yes0")
+
+            req.github_hub = true;
             const xHub = req.headers['X-Hub-Signature'].split('=');
 
             req.github_hex = crypto.createHmac(xHub[0], secret)
@@ -38,10 +42,13 @@ app.get("/", (req, res) => {
 
 app.post("/", (req, res) => {
     console.log("Incoming POST request on GitHub GreenMesa update endpoint.");
+
     console.log(req.body);
 
     if (req.github_hub) {
+
         console.log("yes")
+        
         if (req.github_hex === req.github_signature) {
             console.log("yes2")
             req.sendStatus(201);
