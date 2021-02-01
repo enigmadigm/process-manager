@@ -33,7 +33,7 @@ app.use(bodyParser.json({
 }));
 
 app.get("/", (req, res) => {
-    res.send(401);
+    res.sendStatus(401);
 });
 
 app.post("/", (req, res) => {
