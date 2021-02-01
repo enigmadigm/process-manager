@@ -48,7 +48,7 @@ app.post("/", (req, res) => {
                             return;
                         }
 
-                        cp.exec(`/home/stratus/greenmesa.sh`, (error, stdout, stderr) => {
+                        cp.exec(`greenmesa.sh`, (error, stdout, stderr) => {
                             if (error) {
                                 console.error(`exec error: ${error}`);
                                 return;
