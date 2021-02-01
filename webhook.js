@@ -42,6 +42,7 @@ app.post("/", (req, res) => {
 
     if (req.github_hub) {
         if (req.github_hex === req.github_signature) {
+            console.log(req.body.repository.branches_url)
 
             if (req.body && req.body.repository && req.body.repository.branches_url && typeof req.body.repository.branches_url === "string") {
                 req.sendStatus(201);
