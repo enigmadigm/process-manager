@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd /var/www/stratum/greenmesa
-pm2 stop \
+pm2 stop stratum\
 && git pull \
 && echo "Building App" \
 && npx tsc \
