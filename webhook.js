@@ -20,7 +20,7 @@ app.use(bodyParser.json({
     verify(req, res, buf) {
         req.github_hub = false;
 
-        console.log("h: "+req.headers['X-Hub-Signature'])
+        console.log(req.headers)
 
         if (req.headers && req.headers['X-Hub-Signature'] && typeof req.headers['X-Hub-Signature'] === "string") {
             console.log("yes0")
