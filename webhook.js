@@ -39,7 +39,7 @@ app.post("/", (req, res) => {
         if (req.github_hex === req.github_signature) {
             res.sendStatus(201);
             if (req.body && req.body.ref && typeof req.body.ref === "string") {
-                if (req.body.ref === "refs/heads/dev-main") {// https://api.github.com/repos/enigmadigm/greenmesa/branches/master
+                if (req.body.ref === "refs/heads/master") {// https://api.github.com/repos/enigmadigm/greenmesa/branches/master
                     cp.exec("greenmesa.sh");
                     //cp.exec(`cd ${repo} && git pull`);
                 }
