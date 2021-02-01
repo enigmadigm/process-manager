@@ -32,6 +32,10 @@ app.use(bodyParser.json({
     }
 }));
 
+app.get("/", (req, res) => {
+    res.send(401);
+});
+
 app.post("/", (req, res) => {
     console.log("Incoming POST request on GitHub GreenMesa update endpoint.");
     console.log(req.body);
