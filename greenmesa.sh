@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /var/www/stratm/greenmesa
+cd /var/www/stratum/greenmesa
 pm2 stop \
 && git pull \
 && echo "Building App" \
