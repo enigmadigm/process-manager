@@ -4,6 +4,7 @@ const crypto = require('crypto');
 const cp = require("child_process");
 const bodyParser = require('body-parser');
 const pm2 = require("pm2");
+const path = require("path");
 //const http = require('http');
 
 const app = express();
@@ -48,7 +49,7 @@ app.post("/", (req, res) => {
                             return;
                         }
 
-                        cp.exec(`greenmesa.sh`, (error, stdout, stderr) => {
+                        cp.exec(`${path.join(__dirname, "greenmesa.sh")}`, (error, stdout, stderr) => {
                             if (error) {
                                 console.error(`exec error: ${error}`);
                                 return;
