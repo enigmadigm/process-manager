@@ -22,11 +22,11 @@ app.use(bodyParser.json({
 
         console.log(req.headers)
 
-        if (req.headers && req.headers['X-Hub-Signature'] && typeof req.headers['X-Hub-Signature'] === "string") {
+        if (req.headers && req.headers['x-hub-signature'] && typeof req.headers['x-hub-signature'] === "string") {
             console.log("yes0")
 
             req.github_hub = true;
-            const xHub = req.headers['X-Hub-Signature'].split('=');
+            const xHub = req.headers['x-hub-signature'].split('=');
 
             req.github_hex = crypto.createHmac(xHub[0], secret)
                 .update(buf)
