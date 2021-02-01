@@ -1,8 +1,9 @@
 const express = require('express');
-const { WEBHOOK_SECRET, SUDO_PWD } = require("./config.json");
+const { WEBHOOK_SECRET } = require("./config.json");
 const crypto = require('crypto');
 const cp = require("child_process");
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
+//const pm2 = require("pm2");
 //const http = require('http');
 
 const app = express();
@@ -40,7 +41,13 @@ app.post("/", (req, res) => {
             res.sendStatus(201);
             if (req.body && req.body.ref && typeof req.body.ref === "string") {
                 if (req.body.ref === "refs/heads/master") {// https://api.github.com/repos/enigmadigm/greenmesa/branches/master
-                    cp.exec(`echo -e "${SUDO_PWD}\n" | sudo -S /var/www/pm/greenmesa.sh`, (error, stdout, stderr) => {
+
+                    cp.exec(`cd /var/www/stratum/greenmesa && pm2 stop stratum \
+&& git pull \
+&& echo "Building App" \
+&& npx tsc \
+&& echo "Deploying to PM2" \
+&& pm2 reload stratum`, (error, stdout, stderr) => {
                         if (error) {
                             console.error(`exec error: ${error}`);
                             return;
@@ -48,6 +55,28 @@ app.post("/", (req, res) => {
                         console.log(`stdout: ${stdout}`);
                         console.log(`stderr: ${stderr}`);
                     });
+                    
+                    
+                    /*pm2.connect(async (err) => {
+                        if (err) {
+                            console.error(err);
+                            return;
+                        }
+
+                        pm2.reload(process, (err) => {
+
+                        }) 
+
+                        pm2.disconnect();
+                    });*/
+                    /*cp.exec(`echo ${SUDO_PWD} | sudo -S /var/www/pm/greenmesa.sh`, (error, stdout, stderr) => {
+                        if (error) {
+                            console.error(`exec error: ${error}`);
+                            return;
+                        }
+                        console.log(`stdout: ${stdout}`);
+                        console.log(`stderr: ${stderr}`);
+                    });*/
                     //cp.exec(`cd ${repo} && git pull`);
                 }
             }
