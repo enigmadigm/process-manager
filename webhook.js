@@ -19,12 +19,7 @@ app.use(function (req, res, next) {
 app.use(bodyParser.json({
     verify(req, res, buf) {
         req.github_hub = false;
-
-        console.log(req.headers)
-
         if (req.headers && req.headers['x-hub-signature'] && typeof req.headers['x-hub-signature'] === "string") {
-            console.log("yes0")
-
             req.github_hub = true;
             const xHub = req.headers['x-hub-signature'].split('=');
 
@@ -43,16 +38,9 @@ app.get("/", (req, res) => {
 app.post("/", (req, res) => {
     console.log("Incoming POST request on GitHub GreenMesa update endpoint.");
 
-    console.log(req.body);
-
     if (req.github_hub) {
-
-        console.log("yes")
-        
         if (req.github_hex === req.github_signature) {
-            console.log("yes2")
-            req.sendStatus(201);
-            
+            res.sendStatus(201);
             console.log(req.body.repository.branches_url)
             if (req.body && req.body.repository && req.body.repository.branches_url && typeof req.body.repository.branches_url === "string") {
                 if (req.body.branches_url === "https://api.github.com/repos/enigmadigm/greenmesa/branches/master") {
