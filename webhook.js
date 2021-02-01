@@ -24,7 +24,7 @@ app.use(bodyParser.json({
 
             const xHub = req.headers['X-Hub-Signature'].split('=');
 
-            req.github_hex = "sha1=" + crypto.createHmac(xHub[0], secret)
+            req.github_hex = crypto.createHmac(xHub[0], secret)
                 .update(buf)
                 .digest('hex');
             req.github_signature = xHub[1];
@@ -41,11 +41,13 @@ app.post("/", (req, res) => {
     console.log(req.body);
 
     if (req.github_hub) {
+        console.log("yes")
         if (req.github_hex === req.github_signature) {
+            console.log("yes2")
+            req.sendStatus(201);
+            
             console.log(req.body.repository.branches_url)
-
             if (req.body && req.body.repository && req.body.repository.branches_url && typeof req.body.repository.branches_url === "string") {
-                req.sendStatus(201);
                 if (req.body.branches_url === "https://api.github.com/repos/enigmadigm/greenmesa/branches/master") {
                     console.log('yes');
                     //cp.exec(`cd ${repo} && git pull`);
