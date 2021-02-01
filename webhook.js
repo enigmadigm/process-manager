@@ -41,14 +41,13 @@ app.post("/", (req, res) => {
     if (req.github_hub) {
         if (req.github_hex === req.github_signature) {
             res.sendStatus(201);
-            console.log(req.body.repository.branches_url)
             if (req.body && req.body.ref && typeof req.body.ref === "string") {
                 if (req.body.ref === "refs/heads/dev-main") {// https://api.github.com/repos/enigmadigm/greenmesa/branches/master
                     console.log('yes');
                     //cp.exec(`cd ${repo} && git pull`);
                 }
             }
-            
+            return;
         }
     }
     res.sendStatus(401);
