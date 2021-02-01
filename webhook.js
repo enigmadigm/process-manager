@@ -40,7 +40,7 @@ app.post("/", (req, res) => {
             res.sendStatus(201);
             if (req.body && req.body.ref && typeof req.body.ref === "string") {
                 if (req.body.ref === "refs/heads/dev-main") {// https://api.github.com/repos/enigmadigm/greenmesa/branches/master
-                    cp.exec("")
+                    cp.exec("greenmesa.sh");
                     //cp.exec(`cd ${repo} && git pull`);
                 }
             }
