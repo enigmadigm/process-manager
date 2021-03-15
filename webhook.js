@@ -49,23 +49,35 @@ app.post("/", (req, res) => {
                             return;
                         }
 
-                        cp.exec(`${path.join(__dirname, "greenmesa.sh")}`, (error, stdout, stderr) => {
-                            if (error) {
-                                console.error(`exec error: ${error}`);
-                                return;
-                            }
-                            console.log(`stdout: ${stdout}`);
-                            console.log(`stderr: ${stderr}`);
-                            /*if (stdout === "Deploying to PM2") {
-                                pm2.reload(process, (err) => {
-                                    if (err) {
-                                        console.error(err);
-                                        return;
-                                    }
-                                    console.log("PM2: Reloaded Stratum Process");
-                                })
-                            }*/
-                        });
+                        if (req.body.repository.full_name.toLowerCase() === "enigmadigm/greenmesa") {
+                            cp.exec(`${path.join(__dirname, "greenmesa.sh")}`, (error, stdout, stderr) => {
+                                if (error) {
+                                    console.error(`exec error: ${error}`);
+                                    return;
+                                }
+                                console.log(`stdout: ${stdout}`);
+                                console.log(`stderr: ${stderr}`);
+                                /*if (stdout === "Deploying to PM2") {
+                                    pm2.reload(process, (err) => {
+                                        if (err) {
+                                            console.error(err);
+                                            return;
+                                        }
+                                        console.log("PM2: Reloaded Stratum Process");
+                                    })
+                                }*/
+                            });
+                        }
+                        if (req.body.repository.full_name.toLowerCase() === "galaxysh/ninjartzip") {
+                            cp.exec(`${path.join(__dirname, "ninjartzip.sh")}`, (error, stdout, stderr) => {
+                                if (error) {
+                                    console.error(`exec error: ${error}`);
+                                    return;
+                                }
+                                console.log(`stdout: ${stdout}`);
+                                console.log(`stderr: ${stderr}`);
+                            });
+                        }
 
                         pm2.disconnect();
                     });
