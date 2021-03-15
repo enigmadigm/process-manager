@@ -41,7 +41,7 @@ app.post("/", (req, res) => {
         if (req.github_hex === req.github_signature) {
             res.sendStatus(201);
             if (req.body && req.body.ref && typeof req.body.ref === "string") {
-                if (req.body.ref === "refs/heads/master") {// https://api.github.com/repos/enigmadigm/greenmesa/branches/master
+                if (req.body.ref === "refs/heads/master" || req.body.ref === "refs/heads/main") {// https://api.github.com/repos/enigmadigm/greenmesa/branches/master
 
                     pm2.connect(async (err) => {
                         if (err) {
@@ -99,7 +99,7 @@ app.post("/", (req, res) => {
     res.sendStatus(401);
 });
 
-app.listen(8080, () => console.log("Listing on port 8080"));
+app.listen(8080, () => console.log("Listening on port 8080"));
 
 /*http.createServer(function (req, res) {
     req.on('data', function(chunk) {
